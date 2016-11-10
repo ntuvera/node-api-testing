@@ -24,6 +24,7 @@ describe('sample unit test', function(){
     });
   });
 
+// Api functionality
   it("shoud add two number", function(done){
   
     //calling ADD api
@@ -40,7 +41,7 @@ describe('sample unit test', function(){
     });
   });
 
-  it("should not do thing incorrectly", function(done){
+  it("should not add numbers incorrectly", function(done){
     server
     .post('/add')
     .send({num1:10, num2:20})
@@ -54,6 +55,23 @@ describe('sample unit test', function(){
     });
   });
 
+  it("should subtract numbers", function(done){
+    server
+      .post('/subtract')
+      .send({num1:20, num2:10})
+      .expect("Content-type", /json/)
+      .expect(200)
+      .end(function(err,res){
+        res.status.should.equal(200);
+        res.body.error.should.equal(false);
+        res.body.data.should.equal(10);
+        done(); 
+      });
+  });
+
+
+
+// Error routing for server 
   it("should return a 404 if no page found", function(done){
     server
     .get('/falseRoute')
